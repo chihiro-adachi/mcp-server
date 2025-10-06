@@ -2,12 +2,6 @@ name: e2e
 
 on:
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to run E2E tests on'
-        required: true
-        default: 'main'
-        type: string
 
 jobs:
   e2e-test:
@@ -16,8 +10,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-        with:
-          ref: ${{ inputs.branch }}
 
       # Docker runtime setup
       - name: Set up Docker Buildx
@@ -54,7 +46,6 @@ jobs:
 
       # Proxy setup
       - name: Start Squid proxy (no auth)
-        if: matrix.network == 'proxy'
         run: |
           docker run -d \
             --name squid \
@@ -63,7 +54,6 @@ jobs:
             ubuntu/squid:latest
 
       - name: Start Squid proxy (with auth)
-        if: matrix.network == 'proxy-auth'
         run: |
           docker run -d \
             --name squid \
