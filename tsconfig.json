@@ -113,7 +113,8 @@
   "exclude": [
     "**/*.test.ts",
     "**/__tests__/**/*",
+    "vitest.config*.ts",
     "node_modules",
-    "dist"
+    "dist",
   ]
 }
