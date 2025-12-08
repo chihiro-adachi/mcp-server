@@ -6,6 +6,7 @@ on:
 
 jobs:
   review:
+    if: github.event.pull_request.user.login == 'chihiro-adachi'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -20,7 +21,7 @@ jobs:
       - name: PR Review with Progress Tracking
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          anthropic_api_key: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
 
           prompt: "/review-pr REPO: ${{ github.repository }} PR_NUMBER: ${{ github.event.pull_request.number }}"
           claude_args: |
